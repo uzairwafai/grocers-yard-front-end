@@ -1,6 +1,6 @@
 import Counter from "./Counter";
 import Header from "./Header";
-import ProductList from "./ProductList";
+import ProductList from "./Products/ProductList";
 function App() {
   return (
     <div>
