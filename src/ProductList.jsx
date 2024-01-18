@@ -20,11 +20,13 @@ class ProductList extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Products</h1>
+      <div >
+        <h1 className="font-semibold">Products: </h1>
+        <div className="grid xl:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 m-1 ">
         {this.state.products.map((item) => (
           <ProductItem key={item._id} value={item} />
         ))}
+        </div>
       </div>
     );
   }
