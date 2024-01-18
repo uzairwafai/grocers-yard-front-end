@@ -3,6 +3,7 @@ import axios from "axios";
 import ProductItem from "./ProductItem";
 import Error from "../util/Error";
 import Loader from "../util/Loader";
+import ShouldRender from "../util/ShouldRender";
 
 class ProductList extends React.Component {
   state = {
@@ -27,8 +28,14 @@ class ProductList extends React.Component {
     return (
       <div>
         <h1 className="font-semibold">Products: </h1>
-        {this.state.loading ? <Loader /> : null}
-        {this.state.hasError ? <Error msg="API error, please check.." /> : null}
+        {/* {this.state.loading ? <Loader /> : null}
+        {this.state.hasError ? <Error msg="API error, please check.." /> : null} */}
+        <ShouldRender cond={this.state.loading}>
+        <Loader />
+        </ShouldRender>
+        <ShouldRender cond={this.state.hasError}>
+          <Error/>
+        </ShouldRender>
         <div className="grid xl:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 m-1 ">
           {this.state.products.map((item) => (
             <ProductItem key={item._id} value={item} />

@@ -1,6 +1,6 @@
 function Loader() {
   return (
-    <div className="flex">
+    <div className="flex absolute top-1/2 left-1/2">
       <div>
         <svg
           aria-hidden="true"
