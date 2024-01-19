@@ -100,7 +100,7 @@ class ProductList extends React.Component {
                       alt="product image"
                     />
                   </td>
-                  <td className="px-6 py-4">${item.price}</td>
+                  <td className="px-6 py-4">₹{item.price}</td>
                   <td className="px-6 py-4">{item.stock}</td>
                 </tr>
               ))}
