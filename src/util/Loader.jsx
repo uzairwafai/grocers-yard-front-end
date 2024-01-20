@@ -4,7 +4,7 @@ function Loader() {
       <div>
         <svg
           aria-hidden="true"
-          className="inline w-10 h-10text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="inline w-10 h-10text-gray-200 animate-spin dark:text-gray-600 fill-rose-700"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ function Loader() {
         </svg>
         <span className="sr-only">Loading...</span>
       </div>
-      <p className="ml-2 mt-2 font-semibold">Loading...</p>
+      <p className="ml-2 mt-2 font-semibold text-rose-700">Loading...</p>
     </div>
   );
 }

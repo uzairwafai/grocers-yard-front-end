@@ -1,5 +1,6 @@
 function ProductItem({ value }) {
-  function getStockValue() {
+  
+    function getStockValue() {
     return value.price * value.stock;
   }
 
