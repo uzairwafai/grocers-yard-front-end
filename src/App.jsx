@@ -1,7 +1,8 @@
 import Contact from "./Contact";
 import Counter from "./Counter";
 import Header from "./Header";
-import About from './About'
+import About from "./About";
+import AddProduct from "./AddProduct";
 import ProductListFunc from "./Products/ProductListFunc";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/counter" element={<Counter />} />
+        <Route path="/add-product" element={<AddProduct />} />
         <Route path="*" element={<ProductListFunc />} />
       </Routes>
     </BrowserRouter>

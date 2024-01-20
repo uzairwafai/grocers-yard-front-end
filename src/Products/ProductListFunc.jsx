@@ -22,7 +22,7 @@ function ProductListFunc() {
   const [loading, setLoading] = useState(true);
   const [columns, setColumns] = useState(false);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(3);
+  const [size, setSize] = useState(5);
 
   //   async componentDidMount() {
   //     try {
@@ -65,8 +65,7 @@ function ProductListFunc() {
     // this.setState({ columns: false });
   }
   const pageRight = () => {
-    if(productsRes.metaData.pages>page)
-    setPage(page + 1);
+    if (productsRes.metaData.pages > page) setPage(page + 1);
   };
   const pageLeft = () => {
     if (page > 1) setPage(page - 1);
@@ -110,9 +109,18 @@ function ProductListFunc() {
               />
             </svg>
           </button>
-          <span className="mt-2 ml-2 font-semibold">Total Pages: {productsRes.metaData.pages} ({productsRes.metaData.rows} products)</span>
+          <span className="mt-2 ml-2 font-semibold">
+            Total Pages: {productsRes.metaData.pages} (
+            {productsRes.metaData.rows} products)
+          </span>
         </div>
         <div>
+          <button
+            onClick={gridView}
+            className={"bg-slate-400 hover:bg-slate-600 rounded m-1 p-1"}
+          >
+            <a href="/add-product"> Add Product</a>
+          </button>
           <button
             onClick={gridView}
             className={
