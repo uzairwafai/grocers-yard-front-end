@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function AddProduct() {
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [stock, setStock] = useState("");
+  const [price, setPrice] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
   const onNameChange = (e) => {
@@ -26,30 +27,32 @@ function AddProduct() {
         console.log(err);
       });
   };
-  const categoryFetch = async (e) => {
+
+  async function categoryFetch(e) {
     e.preventDefault();
     try {
       const catRes = await axios.get(
         `https://grocers-yard-api.onrender.com/api/categories`
       );
-      catRes.data.map((item) => {
-        if (e.target.value == item.name) {
-          setCategory(item._id);
-        }
-      });
+      setCategories(catRes.data);
+      //   if e.target.value==
+      //   setCategory(e.target.value)
+      //   console.log(category)
+      //   console.log("target "+e.target.value)
     } catch (err) {
       console.log(err);
     }
-  };
+  }
+  function categorySet(e) {
+    setCategory(e.target.value);
+  }
+
   return (
     <div>
       <h1 className="text-xl font-semibold">Add Product</h1>
       <div>
         <form className="max-w-sm mx-auto">
-          <div className="mb-2">
-            <label className="block  text-sm font-medium text-gray-900 dark:text-white">
-              Name
-            </label>
+          <div> <p className="text-lg font-semibold ">Name:</p>
             <input
               type="text"
               value={name}
@@ -59,10 +62,7 @@ function AddProduct() {
               required
             />
           </div>
-          <div className="mb-2">
-            <label className="block  text-sm font-medium text-gray-900 dark:text-white">
-              Price
-            </label>
+          <div> <p className="text-lg font-semibold ">Price:</p>
             <input
               type="text"
               value={price}
@@ -74,10 +74,8 @@ function AddProduct() {
               required
             />
           </div>
-          <div className="mb-2">
-            <label className="block  text-sm font-medium text-gray-900 dark:text-white">
-              Stock
-            </label>
+          <div><p className="text-lg font-semibold ">Stock:</p>
+            
             <input
               type="text"
               value={stock}
@@ -90,24 +88,27 @@ function AddProduct() {
             />
           </div>
 
-          {/* <form className="max-w-sm mx-auto mb-2">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Select category
-            </label> */}
-          <select
-            onChange={categoryFetch}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option>--Select category--</option>
-            <option value="non-veg">Non Veg</option>
-            <option value="Groceries">Groceries</option>
-          </select>
-          {/* </form> */}
+          <div className="mb-2"><p className="text-lg font-semibold ">Category:</p>
+            <select
+              onClick={categoryFetch}
+              onChange={categorySet}
+              className="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option>--Select category--</option>
+              {categories.map((item) => {
+                return (
+                  <option key={item._id} value={item._id}>
+                    {item.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
 
           <button
             onClick={onSaveHandler}
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white mt-4 bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Save Product
           </button>
