@@ -5,6 +5,7 @@ function AddProduct() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
+  const [category, setCategory] = useState("");
 
   const onNameChange = (e) => {
     setName(e.target.value);
@@ -14,9 +15,9 @@ function AddProduct() {
     axios
       .post(`https://grocers-yard-api.onrender.com/api/products/`, {
         name,
-        category: "65a81a557ab7ca60fdc2dc2e",
+        category,
         price,
-        stock
+        stock,
       })
       .then((res) => {
         console.log(res);
@@ -24,6 +25,21 @@ function AddProduct() {
       .catch((err) => {
         console.log(err);
       });
+  };
+  const categoryFetch = async (e) => {
+    e.preventDefault();
+    try {
+      const catRes = await axios.get(
+        `https://grocers-yard-api.onrender.com/api/categories`
+      );
+      catRes.data.map((item) => {
+        if (e.target.value == item.name) {
+          setCategory(item._id);
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div>
@@ -50,11 +66,9 @@ function AddProduct() {
             <input
               type="text"
               value={price}
-              onChange={
-                ((e) => {
-                  setPrice(e.target.value);
-                })
-              }
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Price"
               required
@@ -67,26 +81,28 @@ function AddProduct() {
             <input
               type="text"
               value={stock}
-              onChange={
-                ((e) => {
-                  setStock(e.target.value);
-                })
-              }
+              onChange={(e) => {
+                setStock(e.target.value);
+              }}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Stock"
               required
             />
           </div>
 
-          <form className="max-w-sm mx-auto mb-2">
+          {/* <form className="max-w-sm mx-auto mb-2">
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Select category
-            </label>
-            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option>Non Veg</option>
-              <option>Groceries</option>
-            </select>
-          </form>
+            </label> */}
+          <select
+            onChange={categoryFetch}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option>--Select category--</option>
+            <option value="non-veg">Non Veg</option>
+            <option value="Groceries">Groceries</option>
+          </select>
+          {/* </form> */}
 
           <button
             onClick={onSaveHandler}
